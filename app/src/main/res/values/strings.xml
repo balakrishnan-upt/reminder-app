@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LandingPage</string>
+    <string name="add_reminder">Add Reminder</string>
+    <string name="today_s_reminders">Today\'s Reminders</string>
+</resources>
