@@ -45,10 +45,6 @@ public class AddReminderActivity extends AppCompatActivity {
     private String FINALDBDATE = null;
     private String TIMEPICKED = null;
 
-    private String viewDetailsIntentReminderType = null;
-    private String viewDetailsIntentScheduleType = null;
-    private String viewDetailsIntentDayInNum = null;
-    private String viewDetailsIntentDayInAlpha = null;
 
     private Spinner spinner_type;
     private Spinner spinner_schedule;
@@ -113,15 +109,12 @@ public class AddReminderActivity extends AppCompatActivity {
             et_short_desc.setText(cursor.getString(descIndex));
             et_add_notes.setText(cursor.getString(notesIndex));
             tv_one_time_date.setText(cursor.getString(dateIndex));
+            tv_bday_date.setText(cursor.getString(dateIndex));
             tv_pick_time.setText(cursor.getString(timeIndex));
-            viewDetailsIntentReminderType = cursor.getString(remtypeIndex);
-            viewDetailsIntentScheduleType = viewDetailsIntentReminderType.equals("Buisness") || viewDetailsIntentReminderType.equals("Personal") ? cursor.getString(scheduletypeIndex) : null;
-            viewDetailsIntentDayInNum = cursor.getString(scheduletypeIndex).equals("Monthly")?cursor.getString(dateIndex) : null;
-            viewDetailsIntentDayInAlpha = cursor.getString(scheduletypeIndex).equals("Weekly")?cursor.getString(dateIndex) : null;
-
-
-        }else{
-
+            this.REMINDERTYPE = cursor.getString(remtypeIndex);
+            this.SCHEDULETYPE = this.REMINDERTYPE.equals("Buisness") || this.REMINDERTYPE.equals("Personal") ? cursor.getString(scheduletypeIndex) : null;
+            this.DAYINNUM = cursor.getString(scheduletypeIndex).equals("Monthly")?cursor.getString(dateIndex) : null;
+            this.DAYINALPHA = cursor.getString(scheduletypeIndex).equals("Weekly")?cursor.getString(dateIndex) : null;
         }
         setSpinnerReminderType();
         setSpinnerScheduleType();
@@ -142,8 +135,8 @@ public class AddReminderActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.types_array,android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_type.setAdapter(adapter);
-        if(viewDetailsIntentReminderType != null){
-            int position = adapter.getPosition(viewDetailsIntentReminderType);
+        if(this.REMINDERTYPE != null){
+            int position = adapter.getPosition(this.REMINDERTYPE);
             spinner_type.setSelection(position);
         }
         spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -170,6 +163,10 @@ public class AddReminderActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.schedule_array,android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_schedule.setAdapter(adapter);
+        if(this.SCHEDULETYPE != null){
+                int position = adapter.getPosition(this.SCHEDULETYPE);
+                spinner_schedule.setSelection(position);
+        }
         spinner_schedule.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -263,6 +260,7 @@ public class AddReminderActivity extends AppCompatActivity {
 
     public void setSpinnerWeeklyMonthly(final String weeklyOrMonthly){
         ArrayAdapter<CharSequence> adapter;
+
         if(weeklyOrMonthly.equals("Monthly")){
             adapter = ArrayAdapter.createFromResource(this,R.array.monthly_array,android.R.layout.simple_spinner_dropdown_item);
         }else {
@@ -270,6 +268,14 @@ public class AddReminderActivity extends AppCompatActivity {
         }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_monthly.setAdapter(adapter);
+        if(this.DAYINALPHA != null){
+            int position = adapter.getPosition(this.DAYINALPHA);
+            spinner_monthly.setSelection(position);
+        }
+        if(this.DAYINNUM != null){
+            int position = adapter.getPosition(this.DAYINNUM);
+            spinner_monthly.setSelection(position);
+        }
     }
 
     public void insertReminder(){

@@ -1,14 +1,20 @@
 package com.example.landingpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class GenerateCardViewOthers {
     private Context context;
@@ -31,7 +37,7 @@ public class GenerateCardViewOthers {
     }
 
     public void generateView(){
-        int idIndex = cursor.getColumnIndex("id");
+        final int idIndex = cursor.getColumnIndex("id");
         int descIndex = cursor.getColumnIndex("shortdesc");
         int notesIndex = cursor.getColumnIndex("addnotes");
         int dateIndex = cursor.getColumnIndex("date");
@@ -48,6 +54,8 @@ public class GenerateCardViewOthers {
             TextView tv_time_label = view.findViewById(R.id.tv_time_label);
             TextView tv_remtime = view.findViewById(R.id.tv_remtime);
             final LinearLayout layout_add_items = view.findViewById(R.id.layout_add_items);
+            Button btn_viewdetails = view.findViewById(R.id.btn_viewdetails);
+            Button btn_delete = view.findViewById(R.id.btn_delete);
 
             layout_add_items.setVisibility(View.GONE);
             tv_short_desc.setText(cursor.getString(descIndex));
@@ -89,6 +97,27 @@ public class GenerateCardViewOthers {
                 public void onClick(View v) {
                     Toast.makeText(context,String.valueOf(view.getId()),Toast.LENGTH_SHORT).show();
                     layout_add_items.setVisibility(layout_add_items.getVisibility()==view.GONE ? View.VISIBLE : View.GONE);
+
+                }
+            });
+            btn_viewdetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context , AddReminderActivity.class);
+                    i.putExtra("id" , view.getId());
+                    context.startActivity(i);
+                }
+            });
+            btn_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SQLiteDatabase myDatabase = context.openOrCreateDatabase("RemindersData",MODE_PRIVATE,null);
+                    int a = myDatabase.delete("remindersdata" ,"id=?",new String[]{String.valueOf(view.getId())} );
+                    if(a > 0){
+                        Toast.makeText(context,"Reminder deleted successfully" , Toast.LENGTH_SHORT).show();
+                        mainLayout.removeView(view);
+                    }
+
 
                 }
             });

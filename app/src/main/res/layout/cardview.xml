@@ -15,19 +15,20 @@
         android:layout_gravity="center"
         android:layout_marginLeft="5dp"
         android:animateLayoutChanges="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="7dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="7dp">
+        app:cardElevation="5dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/onetimecard"
             android:animateLayoutChanges="true">
             <LinearLayout
+                android:id="@+id/layout_shortdesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
                 android:orientation="vertical"
                 android:padding="7dp">
 
@@ -46,8 +47,8 @@
                 android:id="@+id/layout_other_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="51dp"
-                android:background="@color/colorPrimaryDark"
+                android:layout_below="@id/layout_shortdesc"
+
                 android:padding="7dp"
                 android:orientation="vertical">
 

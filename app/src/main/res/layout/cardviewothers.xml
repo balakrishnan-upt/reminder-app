@@ -15,19 +15,20 @@
         android:layout_gravity="center"
         android:layout_marginLeft="5dp"
         android:animateLayoutChanges="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="10dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="7dp">
+        app:cardElevation="5dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/birthdaycard"
             android:animateLayoutChanges="true">
             <LinearLayout
+                android:id="@+id/layout_shortdesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#0c4d2d"
                 android:orientation="vertical"
                 android:padding="7dp">
 
@@ -36,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="7dp"
-                    android:textColor="#87ac02"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
@@ -46,9 +47,8 @@
                 android:id="@+id/layout_other_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="51dp"
-                android:background="#0c4d2d"
                 android:padding="7dp"
+                android:layout_below="@id/layout_shortdesc"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -62,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@android:color/white"
+                        android:textColor="#b0bfff"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
 
@@ -78,7 +78,7 @@
                         android:id="@+id/tv_time_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
+                        android:textColor="#b0bfff"
                         android:layout_weight="1"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
@@ -101,7 +101,7 @@
                         android:text="Next Reminder In : "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
+                        android:textColor="#b0bfff"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
                     <TextView
@@ -122,6 +122,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_viewdetails"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_weight="1"
@@ -131,6 +132,7 @@
                     android:textSize="16sp"></Button>
 
                 <Button
+                    android:id="@+id/btn_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_weight="1"

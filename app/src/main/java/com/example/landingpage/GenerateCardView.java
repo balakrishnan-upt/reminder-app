@@ -3,6 +3,7 @@ package com.example.landingpage;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class GenerateCardView {
     private Context context;
@@ -65,6 +68,19 @@ public class GenerateCardView {
                     Intent i = new Intent(context , AddReminderActivity.class);
                     i.putExtra("id" , view.getId());
                     context.startActivity(i);
+                }
+            });
+            btn_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SQLiteDatabase myDatabase = context.openOrCreateDatabase("RemindersData",MODE_PRIVATE,null);
+                    int a = myDatabase.delete("remindersdata" ,"id=?",new String[]{String.valueOf(view.getId())} );
+                    if(a > 0){
+                        Toast.makeText(context,"Reminder deleted successfully" , Toast.LENGTH_SHORT).show();
+                        mainLayout.removeView(view);
+                    }
+
+
                 }
             });
             mainLayout.addView(view);

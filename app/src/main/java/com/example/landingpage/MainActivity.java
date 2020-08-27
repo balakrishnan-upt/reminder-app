@@ -2,10 +2,13 @@ package com.example.landingpage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0b126a")));
+        getSupportActionBar().setTitle("");
         layout_today_reminder = findViewById(R.id.layout_today_reminder);
         btn_add_reminder = findViewById(R.id.btn_add_reminder);
         tv_no_reminders = findViewById(R.id.tv_no_reminders);
@@ -80,10 +85,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        finish();
+    protected void onPause() {
+        super.onPause();
+        layout_today_reminder.removeAllViews();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        layout_today_reminder.removeAllViews();
         SQLiteDatabase myDatabase = this.openOrCreateDatabase("RemindersData",MODE_PRIVATE,null);
         myDatabase.execSQL("CREATE TABLE IF NOT EXISTS remindersdata (id  INTEGER PRIMARY KEY AUTOINCREMENT, shortdesc VARCHAR, addnotes VARCHAR, remtype VARCHAR, scheduletype VARCHAR, date VARCHAR, time VARCHAR, status VARCHAR , extra1 VARCHAR , extra2 VARCHAR)");
         Cursor myCursor = myDatabase.rawQuery("SELECT * FROM remindersdata  WHERE scheduletype='One Time'" , null);
@@ -119,5 +132,4 @@ public class MainActivity extends AppCompatActivity {
             }while(myCursor3.moveToNext());
         }
     }
-
 }
