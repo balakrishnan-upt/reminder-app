@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume() {
+        super.onResume();
         layout_today_reminder.removeAllViews();
         SQLiteDatabase myDatabase = this.openOrCreateDatabase("RemindersData",MODE_PRIVATE,null);
         myDatabase.execSQL("CREATE TABLE IF NOT EXISTS remindersdata (id  INTEGER PRIMARY KEY AUTOINCREMENT, shortdesc VARCHAR, addnotes VARCHAR, remtype VARCHAR, scheduletype VARCHAR, date VARCHAR, time VARCHAR, status VARCHAR , extra1 VARCHAR , extra2 VARCHAR)");
@@ -130,6 +130,16 @@ public class MainActivity extends AppCompatActivity {
             do{
                 generateCardViewOthers.generateView();
             }while(myCursor3.moveToNext());
+        }
+        Cursor myCursor4 = myDatabase.rawQuery("SELECT * FROM remindersdata WHERE scheduletype='Daily'" , null);
+        int rowCount4 = myCursor4.getCount();
+        if(rowCount4 != 0){
+            tv_no_reminders.setVisibility(View.GONE);
+            myCursor4.moveToFirst();
+            generateCardViewOthers = new GenerateCardViewOthers(this,myCursor4,layout_today_reminder,"Daily");
+            do{
+                generateCardViewOthers.generateView();
+            }while(myCursor4.moveToNext());
         }
     }
 }

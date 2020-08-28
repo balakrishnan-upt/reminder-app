@@ -65,11 +65,20 @@ public class AddReminderActivity extends AppCompatActivity {
     private LinearLayout layout_pick_day;
     private LinearLayout layout_pick_time;
     private LinearLayout layout_validation_error;
+    private LinearLayout layout_btn_addreminder;
+    private LinearLayout layout_btn_modifyreminder;
+    private LinearLayout layout_btn_savereminder;
 
     private DatePickerDialog.OnDateSetListener bdayDateSetListener;
     private DatePickerDialog.OnDateSetListener oneTimeDateSetListener;
     private TimePickerDialog.OnTimeSetListener timeSetListener;
+
     private Button btn_add_reminder;
+    private Button btn_modify_reminder;
+    private Button btn_save_reminder;
+    private Button btn_cancel;
+
+    private Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +99,16 @@ public class AddReminderActivity extends AppCompatActivity {
         layout_pick_day = findViewById(R.id.layout_pick_day);
         layout_pick_time = findViewById(R.id.layout_pick_time);
         layout_validation_error = findViewById(R.id.layout_validation_error);
+        layout_btn_addreminder = findViewById(R.id.layout_btn_addreminder);
+        layout_btn_modifyreminder = findViewById(R.id.layout_btn_modifyreminder);
+        layout_btn_savereminder = findViewById(R.id.layout_btn_save_reminder);
         btn_add_reminder = findViewById(R.id.btn_add_reminder);
+        btn_modify_reminder = findViewById(R.id.btn_modify_reminder);
+        btn_save_reminder = findViewById(R.id.btn_save_reminder);
+        btn_cancel = findViewById(R.id.btn_cancel);
         layout_validation_error.setVisibility(View.GONE);
 
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
         if(extras != null){
             int id = extras.getInt("id");
             SQLiteDatabase myDatabase = this.openOrCreateDatabase("RemindersData",MODE_PRIVATE,null);
@@ -115,12 +130,16 @@ public class AddReminderActivity extends AppCompatActivity {
             this.SCHEDULETYPE = this.REMINDERTYPE.equals("Buisness") || this.REMINDERTYPE.equals("Personal") ? cursor.getString(scheduletypeIndex) : null;
             this.DAYINNUM = cursor.getString(scheduletypeIndex).equals("Monthly")?cursor.getString(dateIndex) : null;
             this.DAYINALPHA = cursor.getString(scheduletypeIndex).equals("Weekly")?cursor.getString(dateIndex) : null;
+            disableInputFields();
         }
         setSpinnerReminderType();
         setSpinnerScheduleType();
         setBdayTvClickListener();
         setTvPickTimeClickListener();
         setTvOneTimeDateClickListener();
+        layout_btn_modifyreminder.setVisibility(extras != null ? View.VISIBLE : View.GONE);
+        layout_btn_savereminder.setVisibility(View.GONE);
+        layout_btn_addreminder.setVisibility(extras == null ? View.VISIBLE : View.GONE);
 
         btn_add_reminder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +148,54 @@ public class AddReminderActivity extends AppCompatActivity {
             }
         });
 
+        btn_save_reminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertReminder();
+            }
+        });
+
+        btn_modify_reminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enableInputFields();
+                btn_modify_reminder.setVisibility(View.GONE);
+                layout_btn_savereminder.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                disableInputFields();
+                layout_btn_savereminder.setVisibility(View.GONE);
+                btn_modify_reminder.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+    }
+
+    public void disableInputFields() {
+        et_short_desc.setClickable(false);
+        et_add_notes.setClickable(false);
+        spinner_type.setClickable(false);
+        spinner_schedule.setClickable(false);
+        tv_bday_date.setEnabled(false);
+        tv_pick_time.setEnabled(false);
+        tv_one_time_date.setEnabled(false);
+    }
+
+    public void enableInputFields() {
+        et_short_desc.setClickable(true);
+        et_short_desc.setClickable(true);
+        et_add_notes.setClickable(true);
+        spinner_type.setClickable(true);
+        spinner_schedule.setClickable(true);
+        tv_bday_date.setEnabled(true);
+        tv_pick_time.setEnabled(true);
+        tv_one_time_date.setEnabled(true);
     }
 
     public void setSpinnerReminderType(){
@@ -303,10 +370,14 @@ public class AddReminderActivity extends AppCompatActivity {
             values.put("status" , "Pending");
             values.put("extra1" , "");
             values.put("extra2" , "");
+            if(extras != null){
+                myDatabase.update("remindersdata" , values,"id=?" , new String[]{String.valueOf(extras.getInt("id"))});
+                Toast.makeText(getApplicationContext(), "Reminder Updated Successfully", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
             myDatabase.insert("remindersdata",null,values);
             Toast.makeText(getApplicationContext(), "Reminder Added Successfully", Toast.LENGTH_SHORT).show();
-            final Intent intent = new Intent(this , MainActivity.class);
-            startActivityForResult(intent,1);
             finish();
         }else{
             return;

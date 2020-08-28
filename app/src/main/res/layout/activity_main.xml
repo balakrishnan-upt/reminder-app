@@ -33,7 +33,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="120dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_wave" />
 
@@ -57,11 +57,11 @@
                         android:layout_width="wrap_content"
                         android:gravity="center_vertical"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="120dp"
+                        android:layout_marginTop="100dp"
                         android:elevation="20dp"
                         android:background="@drawable/btnaddreminder"
                         android:paddingLeft="25dp"
-                        android:paddingRight="25dp"
+                        android:paddingRight="37dp"
                         android:text=" + Click to add a Reminder"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
@@ -378,29 +378,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_today_label">
 
+                <TextView
+                    android:id="@+id/tv_no_reminders"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:padding="15dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/birthdaycard"
+                    android:text="No reminders for today"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
                 <LinearLayout
                     android:id="@+id/layout_today_reminder"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical" />
 
-                    <TextView
-                        android:id="@+id/tv_no_reminders"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="15dp"
-                        android:text="No reminders for today"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
