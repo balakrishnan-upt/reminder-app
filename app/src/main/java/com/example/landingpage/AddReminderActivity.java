@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -84,6 +85,8 @@ public class AddReminderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reminder);
+        getSupportActionBar().hide();
+
         spinner_type = findViewById(R.id.spinner_type);
         spinner_schedule = findViewById(R.id.spinner_schedule);
         spinner_monthly = findViewById(R.id.spinner_monthly);

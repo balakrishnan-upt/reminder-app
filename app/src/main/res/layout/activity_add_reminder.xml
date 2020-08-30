@@ -4,15 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:background="#0b126a"
+    android:layout_gravity="center"
     tools:context=".AddReminderActivity">
-    <ScrollView
+    <ImageView
+        android:id="@+id/iview"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:src="@drawable/buildings"/>
+
+    <ScrollView
+        android:layout_below="@+id/iview"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:padding="10dp"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add"
+                    android:textColor="@android:color/white"
+                    android:textSize="35sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_title"
+                    android:layout_marginLeft="10dp"
+                    android:text="Reminder"
+                    android:textColor="@android:color/white"
+                    android:textSize="35sp"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_validation_error"
@@ -35,12 +69,13 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:paddingLeft="10dp"
+                    android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="short description"
                     android:layout_below="@id/layout_validation_error"
                     android:elevation="6dp"
+                    android:textColor="#0b126a"
                     android:background="@drawable/edittext"/>
 
 
@@ -49,12 +84,13 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:paddingLeft="10dp"
+                    android:padding="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:hint="Additional Notes"
                     android:layout_below="@id/et_short_desc"
                     android:elevation="6dp"
+                    android:textColor="#0b126a"
                     android:background="@drawable/edittext" />
 
                 <LinearLayout
@@ -70,9 +106,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="Reminder Type"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -80,10 +116,11 @@
                         android:id="@+id/spinner_type"
                         android:background="@drawable/edittext"
                         android:layout_width="match_parent"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="5dp"
                         android:elevation="3dp"
                         android:layout_weight="0.8"
                         android:spinnerMode="dialog"
+                        android:textColor="#0b126a"
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
@@ -101,23 +138,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="Pick Date"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/tv_bday_date"
                     android:background="@drawable/edittext"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:paddingLeft="3dp"
-                    android:elevation="3dp"
                     android:gravity="center_vertical"
                     android:textSize="20sp"
-                    android:textColor="@android:color/black"
-                    android:layout_weight="0.8"
-                    android:layout_height="match_parent" />
+                    android:textColor="#0b126a"
+                    android:layout_weight="0.8" />
 
             </LinearLayout>
 
@@ -137,9 +172,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text=" Schedule Type"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                     <Spinner
@@ -147,9 +182,11 @@
                         android:background="@drawable/edittext"
                         android:layout_width="match_parent"
                         android:layout_marginBottom="10dp"
+                        android:paddingRight="3dp"
                         android:elevation="3dp"
                         android:layout_weight="0.8"
                         android:spinnerMode="dialog"
+                        android:textColor="#0b126a"
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
@@ -166,9 +203,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="Pick Date"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                     <TextView
@@ -176,13 +213,14 @@
                         android:background="@drawable/edittext"
                         android:layout_width="match_parent"
                         android:layout_marginBottom="5dp"
-                        android:paddingLeft="3dp"
                         android:elevation="3dp"
                         android:gravity="center_vertical"
-                        android:textSize="20sp"
-                        android:textColor="@android:color/black"
-                        android:layout_weight="0.8"
-                        android:layout_height="match_parent" />
+                        android:paddingLeft="7dp"
+                        android:paddingRight="7dp"
+                        android:textSize="18sp"
+                        android:textColor="#0b126a"
+                        android:layout_weight="0.79"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -196,9 +234,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="pick a day"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                     <Spinner
@@ -208,6 +246,7 @@
                         android:layout_marginBottom="10dp"
                         android:elevation="3dp"
                         android:layout_weight="0.8"
+                        android:textColor="#0b126a"
                         android:spinnerMode="dialog"
                         android:layout_height="wrap_content" />
 
@@ -222,9 +261,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text=" pick a time"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                     <TextView
@@ -235,10 +274,10 @@
                         android:paddingLeft="3dp"
                         android:elevation="3dp"
                         android:gravity="center_vertical"
-                        android:textSize="20sp"
-                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textColor="#0b126a"
                         android:layout_weight="0.8"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -254,6 +293,7 @@
                     android:id="@+id/btn_add_reminder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/btn_add"
                     android:text="Add Reminder"/>
 
             </LinearLayout>
@@ -270,6 +310,7 @@
                     android:id="@+id/btn_modify_reminder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/btn_add"
                     android:text="Modify Reminder"/>
                 <LinearLayout
                     android:id="@+id/layout_btn_save_reminder"
@@ -279,11 +320,14 @@
                     <Button
                         android:id="@+id/btn_save_reminder"
                         android:layout_width="match_parent"
+                        android:background="@drawable/btn_add"
                         android:layout_height="wrap_content"
                         android:text="Save Reminder"/>
                     <Button
                         android:id="@+id/btn_cancel"
+                        android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
+                        android:background="@drawable/btn_cancel"
                         android:layout_height="wrap_content"
                         android:text="Cancel"/>
                 </LinearLayout>
@@ -291,6 +335,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 
 </RelativeLayout>
